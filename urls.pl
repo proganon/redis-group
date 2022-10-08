@@ -26,6 +26,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
+:- module(urls,
+          [ url_address/3                       % +URL,?Protocol,-HostPort
+          ]).
+:- autoload(library(url), [parse_url/2]).
+
+%!  url_address(+URL, ?Protocol, -HostPort) is semidet.
+%
+%   HostPort for Protocol at URL. The URL must contain a Port number,
+%   otherwise fails. For example:
+%
+%       ?- url_address('tcp://localhost:1234', A, B:C).
+%       A = tcp,
+%       B = localhost,
+%       C = 1234.
+%
+%   @arg URL is the atom or text to parse as an url.
+%
+%   @arg Protocol unifies with the URL's protocol prefix.
+%
+%   @arg HostPort is a colon-functor compound comprising a Host atom and
+%   Port integer.
+
 url_address(URL, Protocol, Host:Port) :-
     parse_url(URL, Attributes),
     memberchk(protocol(Protocol), Attributes),

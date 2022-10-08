@@ -28,26 +28,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 :- load_files(redis, [if(not_loaded)]).
 
-:- setting(group, atom, env('GROUP', tcp), '').
-:- setting(consumer, atom, env('HOSTNAME'), '').
-:- setting(key, atom, env('KEY', hdx), '').
+:- setting(redis_group, atom, env('REDIS_GROUP'), '').
+:- setting(redis_consumer, atom, env('HOSTNAME'), '').
+:- setting(redis_keys, list(atom), env('REDIS_KEYS'), '').
 
 :- initialization(main, main).
 
 main :-
-    setting(group, Group),
+    setting(redis_group, Group),
     catch(setting(consumer, Consumer),
           error(existence_error(setting, _), _),
           gethostname(Consumer)),
-    setting(key, Key),
-    atomic_concat(Key, ':command', CommandKey),
-    atomic_concat(Key, ':query', QueryKey),
-    xgroup_create(CommandKey, Group),
-    xgroup_create(QueryKey, Group),
-    xlisten_group(hdx, Group, Consumer, [CommandKey, QueryKey],
+    setting(redis_keys, Keys),
+    forall(member(Key, Keys), xgroup_create(Key, Group)),
+    xlisten_group(default, Group, Consumer, Keys,
                   [ block(0.1)
                   ]).
 
 xgroup_create(Key, Group) :-
-    catch(redis(hdx, xgroup(create, Key, Group, $, mkstream), status(ok)),
+    catch(redis(default, xgroup(create, Key, Group, $, mkstream), status(ok)),
           error(redis_error(busygroup, _), _), true).

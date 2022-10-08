@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-:- load_files(url, [if(not_loaded)]).
+:- use_module(urls).
 
 :- setting(redis_url, atom, env('REDIS_URL', 'redis://localhost:6379'), '').
 
@@ -34,4 +34,4 @@ redis_address(Address) :-
     setting(redis_url, URL),
     url_address(URL, redis, Address).
 
-:- redis_address(Address), redis_server(hdx, Address, []).
+:- redis_address(Address), redis_server(default, Address, []).
