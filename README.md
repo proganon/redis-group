@@ -14,6 +14,15 @@ listens to one or more streams identified by the environment variable
 keys. The listener automatically creates the streams if they do not
 already exist.
 
+Launch such a "Redis Group" using:
+```bash
+docker run --rm -it -e REDIS_GROUP=mygroup -e REDIS_KEYS="[mykey1, mykey2, mykey3]" $(docker build -q .)
+```
+This assumes that a Redis server runs on Docker already. Docker can launch a local Redis server, with a useful web interface on port 8001, using:
+```bash
+docker run -d -p 6379:6379 -p 8001:8001 redis/redis-stack
+```
+
 ## Redis URL
 
 The environment variable `REDIS_URL` defines the Redis server connection to use.
