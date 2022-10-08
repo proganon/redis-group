@@ -41,9 +41,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 %       B = localhost,
 %       C = 1234.
 %
-%   @arg URL is the atom or text to parse as an url.
+%   @arg URL is the text to parse as an URL.
 %
-%   @arg Protocol unifies with the URL's protocol prefix.
+%   @arg Protocol unifies with the URL's protocol.
 %
 %   @arg HostPort is a colon-functor compound comprising a Host atom and
 %   Port integer.
