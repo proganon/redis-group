@@ -16,4 +16,6 @@ already exist.
 
 ## Redis URL
 
-The environment variable REDIS_URL defines the external Redis server connection. It defaults to `localhost` which never works for containers because the local host does *not* serve Redis.
+The environment variable `REDIS_URL` defines the Redis server connection to use.
+It defaults to `host.docker.internal` which works for containers running on a
+host that exposes a Redis server on the default port, 6379.
