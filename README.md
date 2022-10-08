@@ -1,4 +1,4 @@
-# redis-group
+# Redis Stream Group Consumer Using Programmable Logic
 
 The `swipl/redis-group` container acts as a generic Prolog-based Redis
 stream consumer group running on Alpine Linux. The main thread runs a
