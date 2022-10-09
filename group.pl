@@ -28,15 +28,27 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 :- load_files(redis, [if(not_loaded)]).
 
-:- setting(redis_group, atom, env('REDIS_GROUP'), '').
-:- setting(redis_consumer, atom, env('HOSTNAME'), '').
-:- setting(redis_keys, list(atom), env('REDIS_KEYS'), '').
+:- setting(redis_group, atom,
+           env('REDIS_GROUP'), 'Redis consumer group to join').
+:- setting(redis_consumer, atom,
+           env('HOSTNAME'), 'Name of Redis consumer').
+:- setting(redis_keys, list(atom),
+           env('REDIS_KEYS'), 'List of Redis stream keys to consume').
+
+/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Uses `HOSTNAME` environment variable as the default consumer name
+assuming that Docker generates a unique random name for the consumer
+container. Falls back to gethostname/1 if the environment variable has
+not been set and therefore the `redis_consumer` setting does not exist.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 :- initialization(main, main).
 
 main :-
     setting(redis_group, Group),
-    catch(setting(consumer, Consumer),
+    catch(setting(redis_consumer, Consumer),
           error(existence_error(setting, _), _),
           gethostname(Consumer)),
     setting(redis_keys, Keys),

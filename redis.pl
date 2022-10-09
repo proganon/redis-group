@@ -26,9 +26,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-:- use_module(urls).
+:- use_module(url/addresses).
 
-:- setting(redis_url, atom, env('REDIS_URL', 'redis://host.docker.internal:6379'), '').
+:- setting(redis_url, atom,
+           env('REDIS_URL', 'redis://host.docker.internal:6379'),
+           'URL of Redis server').
 
 redis_address(Address) :-
     setting(redis_url, URL),
