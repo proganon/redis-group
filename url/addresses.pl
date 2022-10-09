@@ -1,4 +1,4 @@
-/*  File:    srv/url.pl
+/*  File:    srv/url/addresses.pl
     Author:  Roy Ratcliffe
     Created: Oct  2 2022
     Purpose: Convert URL to Protocol, Host and Port
@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-:- module(urls,
+:- module(url_addresses,
           [ url_address/3                       % +URL,?Protocol,-HostPort
           ]).
 :- autoload(library(url), [parse_url/2]).
