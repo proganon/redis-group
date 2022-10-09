@@ -28,9 +28,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 :- load_files(redis, [if(not_loaded)]).
 
-:- setting(redis_group, atom, env('REDIS_GROUP'), '').
-:- setting(redis_consumer, atom, env('HOSTNAME'), '').
-:- setting(redis_keys, list(atom), env('REDIS_KEYS'), '').
+:- setting(redis_group, atom,
+           env('REDIS_GROUP'), 'Redis consumer group to join').
+:- setting(redis_consumer, atom,
+           env('HOSTNAME'), 'Name of Redis consumer').
+:- setting(redis_keys, list(atom),
+           env('REDIS_KEYS'), 'List of Redis stream keys').
+
 
 :- initialization(main, main).
 
