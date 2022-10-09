@@ -1,4 +1,4 @@
-# Redis Stream Group Consumer Using Programmable Logic
+# Redis Stream Group Consumer using Programmable Logic
 
 The `swipl/redis-group` container acts as a generic Prolog-based Redis
 stream consumer group running on Alpine Linux. The main thread runs a
@@ -14,11 +14,13 @@ listens to one or more streams identified by the environment variable
 keys. The listener automatically creates the streams if they do not
 already exist.
 
-Launch such a "Redis Group" using:
+## Building from Source
+
+Build from source and launch a "Redis Group" using:
 ```bash
 docker run --rm -it -e REDIS_GROUP=mygroup -e REDIS_KEYS="[mykey1, mykey2, mykey3]" $(docker build -q .)
 ```
-This assumes that a Redis server runs on Docker already. Docker can launch a local Redis server, with a useful web interface on port 8001, using:
+This assumes that a Redis server runs on Docker already. Docker can launch a local Redis server, with a useful web interface on port 8001, using the Docker command:
 ```bash
 docker run -d -p 6379:6379 -p 8001:8001 redis/redis-stack
 ```
