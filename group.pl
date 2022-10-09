@@ -1,7 +1,7 @@
 /*  File:    srv/group.pl
     Author:  Roy Ratcliffe
     Created: Oct  2 2022
-    Purpose: Connect to Redis Stream Group
+    Purpose: Joins Redis Stream Group
 
 Copyright (c) 2022, Roy Ratcliffe, Northumberland, United Kingdom
 
