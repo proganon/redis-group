@@ -1,5 +1,5 @@
 :- setting(redis_xgroup, atom,
-           env('REDIS_XGROUP'),
+           env('REDIS_XGROUP', ''),
            'Name of Redis stream consumer group').
 :- setting(redis_xgroup_create_keys, list(atom),
            env('REDIS_XGROUP_CREATE_KEYS', []),
@@ -7,6 +7,8 @@
 :- setting(redis_xgroup_create_options, list(atom),
            env('REDIS_XGROUP_CREATE_OPTIONS', []),
            'Options for Redis stream consumer group creation').
+
+redis_xgroup(Group) :- setting(redis_xgroup, Group), Group \== ''.
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -18,10 +20,8 @@ Creating a stream group can fail if the group already exists.
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-:- initialization(redis_xgroup_create, program).
-
 redis_xgroup_create :-
-    setting(redis_xgroup, Group),
+    redis_xgroup(Group),
     setting(redis_xgroup_create_keys, Keys),
     forall(member(Key, Keys), redis_xgroup_create(Group, Key)).
 
